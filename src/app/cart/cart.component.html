@@ -1,0 +1,25 @@
+<div
+  class="w-full h-[92%] md:h-full md:px-48 md:py-10 flex flex-col justify-center items-center"
+>
+  <div class="flex justify-center items-center">
+    <span>
+      <p class="text-5xl font-extralight text-cyan-900">Bookbay</p>
+    </span>
+    <span>
+      <img src="assets/Images/cart.png" alt="" />
+    </span>
+  </div>
+  <div
+    class="scroll gap-4 p-4 w-full h-full md:h-[90%] flex flex-col justify-start overflow-x-scroll"
+  >
+    <p *ngIf="cartProducts.length === 0" class="text-5xl text-center mt-44">Sorry, the cart is empty!</p>
+    
+    <app-cart-product
+      *ngFor="let item of cartProducts"
+      [cartItem]="item"
+    ></app-cart-product>
+  </div>
+  <div *ngIf="cartProducts.length !== 0" class="w-full flex justify-end p-10 items-center h-16">
+    <p class="text-3xl"><span class="font-bold text-gray-900">Cart Total :</span><span class="text-blue-950 text-4xl"> {{cartTotal}}</span></p>
+  </div>
+</div>

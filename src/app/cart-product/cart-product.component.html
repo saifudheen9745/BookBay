@@ -1,0 +1,36 @@
+<div
+  class=" bg-gray-200 rounded-lg flex flex-col md:flex-row justify-around items-center h-40 md:h-32 w-[100%]"
+>
+  <div
+    class="h-[60%]  md:h-[100%] gap-5 w-[100%] md:w-[30%] md:py-4 flex items-center justify-center "
+  >
+    <img
+      class="h-[100%]"
+      src="{{cartItem.image}}"
+      alt="Image"
+    />
+    <p>{{cartItem.title}}</p>
+  </div>
+  <div class="w-full md:w-[70%] flex justify-around">
+    <div class="flex justify-center items-center gap-2">
+      <button
+        (click)="decrementQty(cartItem)"
+        id="facebook"
+        class="bg-white sticky duration-500 border-2 border-blue-600 w-10 h-10 text-2xl rounded-full hover:bg-blue-600 hover:text-white text-blue-600"
+      >
+        -
+      </button>
+      <p class="text-2xl">{{cartItem.quantity}}</p>
+      <button
+      (click)="incrementQty(cartItem)"
+        id="facebook"
+        class="bg-white sticky duration-500 border-2 border-blue-600 w-10 h-10 text-2xl rounded-full hover:bg-blue-600 hover:text-white text-blue-600"
+      >
+        +
+      </button>
+    </div>
+        <p class="text-blue-600 text-2xl"> {{+cartItem.price.split('$')[1].split('.')[0] | currency:'INR'}}</p>
+    <p class="text-blue-600 text-2xl"> {{+cartItem.price.split('$')[1].split('.')[0] * (cartItem.quantity || 0)| currency:'INR'}}</p>
+    <p (click)="deteleCartItem(cartItem)" class="cursor-pointer text-4xl">&#10060;</p>
+  </div>
+</div>
