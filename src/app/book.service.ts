@@ -23,6 +23,7 @@ export type BookObj = {
   providedIn: 'root',
 })
 export class BookService {
+  
   constructor(private api: HttpClient) {}
 
   //To get the list of books from the api on startup

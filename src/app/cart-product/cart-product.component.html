@@ -30,7 +30,7 @@
       </button>
     </div>
         <p class="text-blue-600 text-2xl"> {{+cartItem.price.split('$')[1].split('.')[0] | currency:'INR'}}</p>
-    <p class="text-blue-600 text-2xl"> {{+cartItem.price.split('$')[1].split('.')[0] * (cartItem.quantity || 0)| currency:'INR'}}</p>
+    <p class="text-blue-600 text-2xl hidden md:block"><span class="text-black text-xl ">Total: </span> {{+cartItem.price.split('$')[1].split('.')[0] * (cartItem.quantity || 0)| currency:'INR'}}</p>
     <p (click)="deteleCartItem(cartItem)" class="cursor-pointer text-4xl">&#10060;</p>
   </div>
 </div>

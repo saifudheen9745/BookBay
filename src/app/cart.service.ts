@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Book } from './book.service';
+import { SweetAlertsService } from './sweet-alerts.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { Book } from './book.service';
 export class CartService {
   cart = new BehaviorSubject<Book[]>([]);
   cartTotal = new BehaviorSubject<number>(0);
-  constructor() {}
+  constructor(private sweetAlert:SweetAlertsService) {}
 
   //To add products to the cart
   addToCart(product: Book) {
@@ -19,11 +20,7 @@ export class CartService {
       let duplicateIndex = currentCart.findIndex(
         (item) => product?.title === item?.title
       );
-
       if (duplicateIndex < 0) {
-        console.log(product);
-        console.log('not duplica');
-
         currentCart.push(product);
       } else {
         const existingProduct = currentCart[duplicateIndex];
@@ -39,20 +36,23 @@ export class CartService {
   }
 
   //For removing products from the cart
-  removeFromCart(product: Book) {
-    const qty:number = product.quantity as number
-    const priceToReduce: number = parseInt(product.price.split('$')[1]) * qty;
-    let currentCart = this.cart.getValue();
-    let filteredCart = currentCart.filter(
-      (item) => item.title !== product.title
-    );
-    this.cart.next(filteredCart);
-    this.cartTotal.next(this.cartTotal.getValue() - priceToReduce)  
-   
+  async removeFromCart(product: Book) {
+    if (await this.sweetAlert.confirmDelete()) {
+      const qty: number = product.quantity as number;
+      const priceToReduce: number = parseInt(product.price.split('$')[1]) * qty;
+      let currentCart = this.cart.getValue();
+      let filteredCart = currentCart.filter(
+        (item) => item.title !== product.title
+      );
+      this.cart.next(filteredCart);
+      this.cartTotal.next(this.cartTotal.getValue() - priceToReduce);
+    } else {
+      return;
+    }
   }
 
   //For updating the quantity of the products in the cart
-  updateQuantity(product: Book, qty: number) {
+  async updateQuantity(product: Book, qty: number) {
     let currentCart = this.cart.getValue();
     if (product?.title) {
       let duplicateIndex = currentCart.findIndex(

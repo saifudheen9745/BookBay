@@ -1,3 +1,11 @@
 <div class="flex gap-10 flex-wrap justify-center items-center">
-    <app-book (addToCartButton)="addToCart($event)" *ngFor="let book of allBooks" [book]="book"></app-book>
+    <app-book
+    (addToCartButton)="addToCart($event)"
+    *ngFor="let book of allBooks"
+    [book]="book"
+    ></app-book>
+</div>
+
+<div *ngIf="allBooks.length === 0" class="flex gap-10 flex-wrap justify-center items-center">
+  <app-skeleton *ngFor="let item of tempArray"></app-skeleton>
 </div>

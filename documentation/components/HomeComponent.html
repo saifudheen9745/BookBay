@@ -75,6 +75,12 @@
 
 
 
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
 
 
 <section data-compodoc="block-metadata">
@@ -141,10 +147,27 @@
                             <li>
                                 <a href="#allBooks" >allBooks</a>
                             </li>
+                            <li>
+                                <a href="#tempArray" >tempArray</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
 
 
@@ -165,7 +188,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/home/home.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/home/home.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -219,7 +242,49 @@
 
 
 
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
 
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="17"
+                            class="link-to-prism">src/app/home/home.component.ts:17</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
     <section data-compodoc="block-properties">
     
     <h3 id="inputs">
@@ -243,7 +308,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/home/home.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/home/home.component.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -274,6 +339,37 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/home/home.component.ts:12</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tempArray"></a>
+                    <span class="name">
+                        <span ><b>tempArray</b></span>
+                        <a href="#tempArray"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Array(20).fill(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
                                 <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/home/home.component.ts:11</a></div>
                         </td>
                     </tr>
@@ -287,7 +383,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { Book, BookService } from &#x27;../book.service&#x27;;
 import { CartService } from &#x27;../cart.service&#x27;;
 
@@ -296,24 +392,37 @@ import { CartService } from &#x27;../cart.service&#x27;;
   templateUrl: &#x27;./home.component.html&#x27;,
   styleUrls: [&#x27;./home.component.css&#x27;],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+  tempArray: number[] &#x3D; Array(20).fill(0);
   allBooks: Book[] &#x3D; [];
-  constructor(private api: BookService, private cartApi:CartService) {
+  constructor(private api: BookService, private cartApi: CartService) {
+   
+  }
+
+  ngOnInit(): void {
     this.api.getAllBooks().subscribe((data: Book[]) &#x3D;&gt; {
       this.allBooks &#x3D; data;
     });
   }
 
-  addToCart &#x3D; (data:Book)&#x3D;&gt;{
-    this.cartApi.addToCart(data)
-  }
+  addToCart &#x3D; (data: Book) &#x3D;&gt; {
+    this.cartApi.addToCart(data);
+  };
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex gap-10 flex-wrap justify-center items-center&quot;&gt;
-    &lt;app-book (addToCartButton)&#x3D;&quot;addToCart($event)&quot; *ngFor&#x3D;&quot;let book of allBooks&quot; [book]&#x3D;&quot;book&quot;&gt;&lt;/app-book&gt;
+    &lt;app-book
+    (addToCartButton)&#x3D;&quot;addToCart($event)&quot;
+    *ngFor&#x3D;&quot;let book of allBooks&quot;
+    [book]&#x3D;&quot;book&quot;
+    &gt;&lt;/app-book&gt;
+&lt;/div&gt;
+
+&lt;div *ngIf&#x3D;&quot;allBooks.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;flex gap-10 flex-wrap justify-center items-center&quot;&gt;
+  &lt;app-skeleton *ngFor&#x3D;&quot;let item of tempArray&quot;&gt;&lt;/app-skeleton&gt;
 &lt;/div&gt;</code></pre>
     </div>
 
@@ -349,8 +458,8 @@ export class HomeComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="flex gap-10 flex-wrap justify-center items-center">    <app-book (addToCartButton)="addToCart($event)" *ngFor="let book of allBooks" [book]="book"></app-book></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BookComponent', 'selector': 'app-book'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartProductComponent', 'selector': 'app-cart-product'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'NavbarComponent', 'selector': 'app-navbar'}];
+        var COMPONENT_TEMPLATE = '<div><div class="flex gap-10 flex-wrap justify-center items-center">    <app-book    (addToCartButton)="addToCart($event)"    *ngFor="let book of allBooks"    [book]="book"    ></app-book></div><div *ngIf="allBooks.length === 0" class="flex gap-10 flex-wrap justify-center items-center">  <app-skeleton *ngFor="let item of tempArray"></app-skeleton></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BookComponent', 'selector': 'app-book'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartProductComponent', 'selector': 'app-cart-product'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'SkeletonComponent', 'selector': 'app-skeleton'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
 </script>

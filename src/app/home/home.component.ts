@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Book, BookService } from '../book.service';
 import { CartService } from '../cart.service';
 
@@ -7,15 +7,21 @@ import { CartService } from '../cart.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+  tempArray: number[] = Array(20).fill(0);
   allBooks: Book[] = [];
-  constructor(private api: BookService, private cartApi:CartService) {
+  constructor(private api: BookService, private cartApi: CartService) {
+   
+  }
+
+  ngOnInit(): void {
     this.api.getAllBooks().subscribe((data: Book[]) => {
       this.allBooks = data;
     });
   }
 
-  addToCart = (data:Book)=>{
-    this.cartApi.addToCart(data)
-  }
+  addToCart = (data: Book) => {
+    this.cartApi.addToCart(data);
+  };
+  
 }
