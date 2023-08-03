@@ -4,10 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'currencyConverter'
 })
 export class CurrencyConverterPipe implements PipeTransform {
+  transform(value: string, ...args: unknown[]): string {
 
-  transform(value: unknown, ...args: unknown[]): number {
-    
-    return 1;
+    return `₹ ${value.split('$')[1]}`
   }
 
 }

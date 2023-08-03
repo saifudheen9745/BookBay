@@ -68,8 +68,6 @@ export class CartService {
       }
 
       if (existingProduct.quantity && customQty === true) {
-        console.log('hererr');
-
        const existingProductTotal = existingProduct.quantity as number * parseInt(product.price.split('$')[1])
        const newProductTotal = qty * parseInt(product.price.split('$')[1])
         this.cartTotal.next(

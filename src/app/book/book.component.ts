@@ -15,7 +15,5 @@ export class BookComponent {
     this.addToCartButton.emit(book)
   }
 
-  convertToInt = (price:string):number=>{
-    return parseInt(price.split('$')[1])
-  }
+  
 }
