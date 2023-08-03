@@ -8,10 +8,12 @@ import { HomeComponent } from './home/home.component';
 import { BookComponent } from './book/book.component';
 import { CartComponent } from './cart/cart.component';
 import { CartProductComponent } from './cart-product/cart-product.component';
-import {HttpClientModule} from '@angular/common/http';
 import { CurrencyConverterPipe } from './currency-converter.pipe';
 import { SkeletonComponent } from './skeleton/skeleton.component'
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Interceptor } from './interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,8 +30,11 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     AppRoutingModule,
     HttpClientModule,
     SweetAlert2Module,
+    FormsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

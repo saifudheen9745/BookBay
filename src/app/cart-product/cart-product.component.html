@@ -28,6 +28,7 @@
       >
         +
       </button>
+      <input type="number" name="quantity" (keyup)="customQty(cartItem)" placeholder="Qty"  class="bg-gray-50 placeholder-slate-50 text-white  text-sm rounded-lg  block w-1/5 p-2.5 dark:bg-gray-400 " [(ngModel)]="quantity">
     </div>
         <p class="text-blue-600 text-2xl"> {{+cartItem.price.split('$')[1].split('.')[0] | currency:'INR'}}</p>
     <p class="text-blue-600 text-2xl hidden md:block"><span class="text-black text-xl ">Total: </span> {{+cartItem.price.split('$')[1].split('.')[0] * (cartItem.quantity || 0)| currency:'INR'}}</p>

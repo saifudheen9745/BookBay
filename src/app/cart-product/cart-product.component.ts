@@ -9,7 +9,15 @@ import { CartService } from '../cart.service';
 })
 export class CartProductComponent {
   @Input() cartItem: Book;
-  constructor(private cartApi: CartService) {}
+  quantity:number
+  constructor(private cartApi: CartService) {
+  }
+
+  customQty = (book:Book)=>{
+    if(this.quantity > 0){
+      this.cartApi.updateQuantity(book, this.quantity, true);
+    }
+  }
 
   deteleCartItem = (book: Book) => {
     this.cartApi.removeFromCart(book);

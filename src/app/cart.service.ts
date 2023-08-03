@@ -9,13 +9,13 @@ import { SweetAlertsService } from './sweet-alerts.service';
 export class CartService {
   cart = new BehaviorSubject<Book[]>([]);
   cartTotal = new BehaviorSubject<number>(0);
-  constructor(private sweetAlert:SweetAlertsService) {}
+  constructor(private sweetAlert: SweetAlertsService) {}
 
   //To add products to the cart
   addToCart(product: Book) {
     product.quantity = 1;
     const currentCart = this.cart.getValue();
-    
+
     if (product?.title) {
       let duplicateIndex = currentCart.findIndex(
         (item) => product?.title === item?.title
@@ -52,7 +52,7 @@ export class CartService {
   }
 
   //For updating the quantity of the products in the cart
-  async updateQuantity(product: Book, qty: number) {
+  async updateQuantity(product: Book, qty: number, customQty?: boolean) {
     let currentCart = this.cart.getValue();
     if (product?.title) {
       let duplicateIndex = currentCart.findIndex(
@@ -63,14 +63,30 @@ export class CartService {
         this.removeFromCart(product);
         return;
       }
-      if (existingProduct.quantity) {
+      if (existingProduct.quantity && customQty !== true) {
         existingProduct.quantity += qty;
+      }
+
+      if (existingProduct.quantity && customQty === true) {
+        console.log('hererr');
+
+       const existingProductTotal = existingProduct.quantity as number * parseInt(product.price.split('$')[1])
+       const newProductTotal = qty * parseInt(product.price.split('$')[1])
+        this.cartTotal.next(
+          (this.cartTotal.getValue() - existingProductTotal) + newProductTotal
+        )
+        this.cart.next(currentCart);
+        existingProduct.quantity = qty;
+        return;
+      }
+
+      if (customQty) {
       }
       if (qty === -1) {
         this.cartTotal.next(
           this.cartTotal.getValue() - parseInt(product.price.split('$')[1])
         );
-      }else{
+      } else {
         this.cartTotal.next(
           this.cartTotal.getValue() + parseInt(product.price.split('$')[1])
         );
